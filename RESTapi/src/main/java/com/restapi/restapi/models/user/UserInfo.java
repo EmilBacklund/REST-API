@@ -28,8 +28,6 @@ public class UserInfo {
     private String lastName;
     @NotNull
     private String birthDate;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private User user;
 
     @ManyToMany
     @JoinTable

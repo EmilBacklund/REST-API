@@ -31,26 +31,27 @@ public class AuthenticationService {
                         .build())
                 .build();
         repository.save(user);
-        var jwtToken = jwtService.generateToken();
+        //var jwtToken = jwtService.generateToken();
         return AuthenticationResponse.builder()
-                .token(jwtToken)
+                .user(user)
+                .token(jwtService.generateToken())
                 .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        //Kollar om pw och email är korrekt
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-//        var user = repository.findByEmail(request.getEmail())
-//                .orElseThrow();
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow();
 //        if(repository.existsByEmail(request.getEmail())){
-        var jwtToken = jwtService.generateToken();
+       // var jwtToken = jwtService.generateToken();
         return AuthenticationResponse.builder()
-                .token(jwtToken)
+                .user(user)
+                .token(jwtService.generateToken())
                 .build();
     }
 }

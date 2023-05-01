@@ -15,15 +15,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Data //lombok lägger till getter, setter, toString och constructor
-@Builder //design pattern för att bygga klassen / objektet
-@NoArgsConstructor //option för builder
-@AllArgsConstructor //option för builder
-@Entity // entity
-public class User implements UserDetails { //UserDetails interface
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class User implements UserDetails {
 
-    @Id //primary key
-    @GeneratedValue //autoincrement, Auto
+    @Id
+    @GeneratedValue
     private Integer id;
     @Email
     @Column(unique = true)
@@ -32,14 +32,14 @@ public class User implements UserDetails { //UserDetails interface
     private String password;
 
     //@JoinColumn
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
     private UserInfo info;
 //    @OneToOne
 //    private UserMedia media;
     @OneToOne
     private UserAddress address;
 
-    @Enumerated(EnumType.STRING) //Använder sträng värdet från enumen
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     private Date created;

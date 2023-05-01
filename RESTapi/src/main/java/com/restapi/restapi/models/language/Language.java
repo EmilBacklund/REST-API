@@ -13,13 +13,10 @@ public class Language {
     @Id
     @GeneratedValue
     private Long id;
-
     private String language;
-
     public Language(String language) {
         this.language = language;
     }
-
     public Language() {
 
     }

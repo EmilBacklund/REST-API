@@ -20,16 +20,15 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
 
 
-    // security filter chain bean. Ansvarar för http config
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf()
-                .disable() //disable csrf
+                .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**")//accept all authentication related endpoints
+                .requestMatchers("/auth/**")
                 .permitAll()
-                .anyRequest()//Acceptera alla requests
+                .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
@@ -42,9 +41,6 @@ public class SecurityConfiguration {
         return http.build();
 
     }
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return  new BCryptPasswordEncoder();
-//    }
+
 
 }

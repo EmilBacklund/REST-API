@@ -1,7 +1,11 @@
 package com.restapi.restapi;
 
 import com.restapi.restapi.models.language.Language;
+import com.restapi.restapi.models.user.Role;
+import com.restapi.restapi.models.user.User;
+import com.restapi.restapi.models.user.UserInfo;
 import com.restapi.restapi.repositories.LanguageRepository;
+import com.restapi.restapi.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +21,21 @@ public class ResTapiApplication {
         SpringApplication.run(ResTapiApplication.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner hej(LanguageRepository languageRepository){
-//        return (args -> {
-//
+    @Bean
+    public CommandLineRunner hej(LanguageRepository languageRepository, UserRepository userRepository){
+        return (args -> {
+
+            userRepository.save(User.builder()
+                    .email("email@mail.se")
+                    .password("123")
+                    .role(Role.USER)
+                    .info(UserInfo.builder()
+                            .firstName("sven")
+                            .lastName("svensson")
+                            .birthDate("1923")
+                            .build())
+                    .build());
+
 //            List<String> list = List.of("Afrikaans",
 //                    "Albanian",
 //                    "Amharic",
@@ -157,6 +172,6 @@ public class ResTapiApplication {
 //            list.forEach(e->{
 //                languageRepository.save(new Language(e));
 //            });
-//        });
-    //}
+        });
+    }
 }
