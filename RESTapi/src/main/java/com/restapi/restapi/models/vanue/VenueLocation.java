@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 
 @Data
 @Builder
@@ -21,6 +20,4 @@ public class VenueLocation {
     private String city;
     private String zip;
     private String country;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Venue venue;
 }

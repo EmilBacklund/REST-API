@@ -15,8 +15,6 @@ public class VenueInfo {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Venue venue;
     private Integer price;
     private Integer guestQuantity;
     private Integer beds;

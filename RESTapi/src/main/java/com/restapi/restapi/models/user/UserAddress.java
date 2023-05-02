@@ -21,7 +21,4 @@ public class UserAddress {
     private String zip;
     private String country;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private User user;
-
 }

@@ -20,7 +20,4 @@ public class Availabilities {
     private boolean parking;
     private boolean breakfast;
     private boolean pets;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Venue venue;
-
 }

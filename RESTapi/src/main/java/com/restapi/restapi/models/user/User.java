@@ -1,5 +1,8 @@
 package com.restapi.restapi.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.restapi.restapi.models.vanue.Rating;
+import com.restapi.restapi.models.vanue.Venue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -30,13 +33,19 @@ public class User implements UserDetails {
     private String email;
     @NotNull
     private String password;
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    private List<Venue> venues;
 
+    @OneToMany(mappedBy = "rater")
+    @JsonIgnore
+    private List<Rating> ratings;
     //@JoinColumn
     @OneToOne(cascade = CascadeType.ALL)
     private UserInfo info;
-//    @OneToOne
-//    private UserMedia media;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserMedia media;
+    @OneToOne(cascade = CascadeType.ALL)
     private UserAddress address;
 
     @Enumerated(EnumType.STRING)

@@ -4,8 +4,11 @@ import com.restapi.restapi.models.language.Language;
 import com.restapi.restapi.models.user.Role;
 import com.restapi.restapi.models.user.User;
 import com.restapi.restapi.models.user.UserInfo;
+import com.restapi.restapi.models.vanue.*;
 import com.restapi.restapi.repositories.LanguageRepository;
 import com.restapi.restapi.repositories.UserRepository;
+import com.restapi.restapi.repositories.VenueRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,10 +25,13 @@ public class ResTapiApplication {
     }
 
     @Bean
-    public CommandLineRunner hej(LanguageRepository languageRepository, UserRepository userRepository){
+    public CommandLineRunner hej(LanguageRepository languageRepository,
+                                 UserRepository userRepository,
+                                 VenueRepository venueRepository){
         return (args -> {
 
-            userRepository.save(User.builder()
+            userRepository.save(
+                    User.builder()
                     .email("email@mail.se")
                     .password("123")
                     .role(Role.USER)
@@ -35,6 +41,51 @@ public class ResTapiApplication {
                             .birthDate("1923")
                             .build())
                     .build());
+
+            userRepository.save(
+                    User.builder()
+                            .email("bla@mail.se")
+                            .password("123")
+                            .role(Role.USER)
+                            .info(UserInfo.builder()
+                                    .firstName("saga")
+                                    .lastName("svensson")
+                                    .birthDate("5523")
+                                    .build())
+                            .build());
+
+            User rater = userRepository.findByEmail("bla@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
+            User owner = userRepository.findByEmail("email@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+            venueRepository.save(Venue.builder()
+                            .title("title")
+                            .displayImage("image")
+                            .available(true)
+                            .owner(owner)
+                            .availabilities(Availabilities.builder()
+                                    .wifi(true)
+                                    .parking(true)
+                                    .breakfast(false)
+                                    .pets(false)
+                                    .build())
+                            .rating(Rating.builder()
+                                    .rating(5)
+                                    .comment("yay")
+                                    .rater(rater)
+                                    .build())
+                            .info(VenueInfo.builder()
+                                    .price(5000)
+                                    .guestQuantity(5)
+                                    .beds(5)
+                                    .squareMeter(10D)
+                                    .build())
+                            .venueLocation(VenueLocation.builder()
+                                    .address("gata")
+                                    .city("sthlm")
+                                    .zip("124321")
+                                    .country("swe")
+                                    .build())
+                            .build());
 
 //            List<String> list = List.of("Afrikaans",
 //                    "Albanian",

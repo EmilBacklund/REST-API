@@ -22,10 +22,19 @@ public class Venue {
     private String title;
     private String displayImage;
     private boolean available;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn
     private User owner;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    private Availabilities availabilities;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Rating rating;
+    @OneToOne(cascade = CascadeType.ALL)
+    private VenueInfo info;
+    @OneToOne(cascade = CascadeType.ALL)
+    private VenueLocation venueLocation;
+    @OneToOne(cascade = CascadeType.ALL)
+    private VenueMedia venueMedia;
     private Date created;
     private Date updated;
 

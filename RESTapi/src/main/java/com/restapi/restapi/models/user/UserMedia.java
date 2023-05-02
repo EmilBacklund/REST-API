@@ -22,9 +22,6 @@ public class UserMedia {
     private String background;
     @Lob
     private String bio;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn
-    private User user;
     private Date created;
     private Date updated;
 

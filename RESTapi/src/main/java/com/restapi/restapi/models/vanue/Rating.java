@@ -15,15 +15,15 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 public class Rating {
+
     @Id
     @GeneratedValue
     private Long id;
     private Integer rating;
     private String comment;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Venue venue;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private User user;
+    @ManyToOne
+    @JoinColumn
+    private User rater;
     private Date created;
     private Date updated;
     @PrePersist
