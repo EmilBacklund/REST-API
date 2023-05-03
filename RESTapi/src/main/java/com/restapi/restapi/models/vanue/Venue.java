@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -27,8 +28,8 @@ public class Venue {
     private User owner;
     @OneToOne(cascade = CascadeType.ALL)
     private Availabilities availabilities;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Rating rating;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Rating> rating;
     @OneToOne(cascade = CascadeType.ALL)
     private VenueInfo info;
     @OneToOne(cascade = CascadeType.ALL)
