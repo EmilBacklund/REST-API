@@ -7,17 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Availabilities {
+@Builder
+public class Amenity {
     @Id
     @GeneratedValue
     private Long id;
+    private String amenity;
+    private Boolean accessibility;
 
-    private boolean wifi;
-    private boolean parking;
-    private boolean breakfast;
-    private boolean pets;
 }

@@ -20,7 +20,7 @@ public class TrendingVenue {
 
     public TrendingVenue(Venue venue) {
         this.id = venue.getId();
-        this.image = venue.getDisplayImage();
+        this.image = venue.getCoverPhoto();
         this.title = venue.getTitle();
         this.description = venue.getInfo().getDescription();
         this.price = venue.getInfo().getPrice();

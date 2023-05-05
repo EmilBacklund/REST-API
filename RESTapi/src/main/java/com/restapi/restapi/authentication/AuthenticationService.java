@@ -5,6 +5,7 @@ import com.restapi.restapi.models.user.Role;
 import com.restapi.restapi.models.user.User;
 import com.restapi.restapi.models.user.UserInfo;
 import com.restapi.restapi.repositories.UserRepository;
+import com.restapi.restapi.responses.user.UserLoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +21,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        User user = repository.save(User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
@@ -29,11 +30,15 @@ public class AuthenticationService {
                         .lastName(request.getLastname())
                         .birthDate(request.getBirthDate())
                         .build())
-                .build();
-        repository.save(user);
+                .build());
         //var jwtToken = jwtService.generateToken();
+
         return AuthenticationResponse.builder()
-                .user(user)
+                .user(UserLoginResponse.builder()
+                        .id(user.getId())
+                        .name(user.getInfo().getFirstName() + " " + user.getInfo().getLastName())
+                        .birthDay(user.getInfo().getBirthDate())
+                        .build())
                 .token(jwtService.generateToken())
                 .build();
     }
@@ -50,7 +55,11 @@ public class AuthenticationService {
 //        if(repository.existsByEmail(request.getEmail())){
        // var jwtToken = jwtService.generateToken();
         return AuthenticationResponse.builder()
-                .user(user)
+                .user(UserLoginResponse.builder()
+                        .id(user.getId())
+                        .name(user.getInfo().getFirstName() + " " + user.getInfo().getLastName())
+                        .birthDay(user.getInfo().getBirthDate())
+                        .build())
                 .token(jwtService.generateToken())
                 .build();
     }

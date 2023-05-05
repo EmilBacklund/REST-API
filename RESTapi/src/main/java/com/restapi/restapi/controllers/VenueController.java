@@ -1,7 +1,9 @@
 package com.restapi.restapi.controllers;
 
-import com.restapi.restapi.models.vanue.Venue;
+import com.restapi.restapi.models.vanue.*;
+import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
+import com.restapi.restapi.request.VenueRequest;
 import com.restapi.restapi.responses.home.AffordableVenue;
 import com.restapi.restapi.responses.home.HomeScreen;
 import com.restapi.restapi.responses.home.TrendingCountries;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class VenueController {
 
     private final VenueRepository venueRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("get/home")
     public ResponseEntity<HomeScreen> homeScreen(){
@@ -60,6 +63,40 @@ public class VenueController {
                 .collect(Collectors.toList()));
     }
 
-    @PostMapping("post/venue/register")
-    public ResponseEntity<String> registerVenue(@PostMapping )
+    @PostMapping("venue/register/{id}")
+    public ResponseEntity<Long> registerVenue(@PathVariable Long id,
+                                              @RequestBody VenueRequest venueRequest){
+
+        Venue venue = venueRepository.save(Venue.builder()
+                        .title(venueRequest.getTitle())
+                        .coverPhoto(venueRequest.getCoverPhoto())
+                        .type(venueRequest.getType())
+                        .available(true)
+                        .type(venueRequest.getType())
+                        .owner(userRepository.findById(id).orElseThrow())
+                        .amenity(venueRequest.getAmenities().stream().map(e-> Amenity.builder()
+                                .amenity(e.getAmenity())
+                                .accessibility(e.getAccessibility())
+                                .build()).collect(Collectors.toList()))
+                        .info(VenueInfo.builder()
+                                .price(venueRequest.getPrice())
+                                .squareMeter(venueRequest.getSquareMeter())
+                                .beds(venueRequest.getBeds())
+                                .guestQuantity(venueRequest.getGuests())
+                                .description(venueRequest.getDescription())
+                                .build())
+                        .venueLocation(VenueLocation.builder()
+                                .country(venueRequest.getCountry())
+                                .zip(venueRequest.getZip())
+                                .city(venueRequest.getCity())
+                                .street(venueRequest.getStreet())
+                                .build())
+                        .venueMedia(venueRequest.getMedia().stream().map(e-> VenueMedia.builder()
+                                .image(e.getImage())
+                                .description(e.getDescription())
+                                .build()).collect(Collectors.toList()))
+                .build());
+
+        return ResponseEntity.ok(venue.getId());
+    }
 }

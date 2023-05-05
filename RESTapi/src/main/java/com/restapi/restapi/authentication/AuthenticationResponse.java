@@ -1,6 +1,7 @@
 package com.restapi.restapi.authentication;
 
 import com.restapi.restapi.models.user.User;
+import com.restapi.restapi.responses.user.UserLoginResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponse {
 
-    private User user;
+    private UserLoginResponse user;
     private String token;
 
 }

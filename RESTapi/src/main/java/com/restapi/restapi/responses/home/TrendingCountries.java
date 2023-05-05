@@ -19,7 +19,7 @@ public class TrendingCountries {
     //private int price;
     //6
     public TrendingCountries(Venue venue){
-        this.image = venue.getDisplayImage();
+        this.image = venue.getCoverPhoto();
         this.country = venue.getVenueLocation().getCountry();
     }
 }

@@ -18,7 +18,7 @@ public class AffordableVenue {
 
     public AffordableVenue(Venue venue){
         this.id = venue.getId();
-        this.image = venue.getDisplayImage();
+        this.image = venue.getCoverPhoto();
         this.price = venue.getInfo().getPrice();
     }
 }

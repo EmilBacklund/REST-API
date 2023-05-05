@@ -21,21 +21,23 @@ public class Venue {
     private Long id;
 
     private String title;
-    private String displayImage;
+    private String coverPhoto;
+    private String type;
     private boolean available;
     @ManyToOne
     @JoinColumn
     private User owner;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Availabilities availabilities;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Amenity> amenity;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rating> rating;
     @OneToOne(cascade = CascadeType.ALL)
     private VenueInfo info;
     @OneToOne(cascade = CascadeType.ALL)
     private VenueLocation venueLocation;
-    @OneToOne(cascade = CascadeType.ALL)
-    private VenueMedia venueMedia;
+    @ManyToMany
+    @JoinTable
+    private List<VenueMedia> venueMedia;
     private Date created;
     private Date updated;
 

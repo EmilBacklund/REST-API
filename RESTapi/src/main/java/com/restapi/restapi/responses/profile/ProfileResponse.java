@@ -24,6 +24,6 @@ public class ProfileResponse {
 
     private List<Memory> memories;
 
-    List<UserVenue> venues;
+    private List<UserVenue> venues;
 
 }

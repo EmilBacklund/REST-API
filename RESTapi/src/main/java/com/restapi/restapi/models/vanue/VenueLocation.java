@@ -16,7 +16,7 @@ public class VenueLocation {
     @Id
     @GeneratedValue
     private Long id;
-    private String address;
+    private String street;
     private String city;
     private String zip;
     private String country;
