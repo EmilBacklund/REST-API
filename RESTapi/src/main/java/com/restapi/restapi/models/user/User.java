@@ -1,6 +1,7 @@
 package com.restapi.restapi.models.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.restapi.restapi.models.booking.Booking;
 import com.restapi.restapi.models.vanue.Rating;
 import com.restapi.restapi.models.vanue.Venue;
 import jakarta.persistence.*;
@@ -36,6 +37,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
     private List<Venue> venues;
+    @OneToMany(mappedBy = "booker")
+    private List<Booking> bookings;
 
     @OneToMany(mappedBy = "rater")
     @JsonIgnore

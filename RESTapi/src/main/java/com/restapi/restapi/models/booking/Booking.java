@@ -1,6 +1,7 @@
-package com.restapi.restapi.models.vanue;
+package com.restapi.restapi.models.booking;
 
 import com.restapi.restapi.models.user.User;
+import com.restapi.restapi.models.vanue.Venue;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,22 +15,25 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Rating {
-
+public class Booking {
     @Id
     @GeneratedValue
     private Long id;
-    private Integer rating;
-    private String comment;
+
     @ManyToOne
     @JoinColumn
-    private User rater;
+    private User booker;
 
-//    @ManyToOne
-//    @JoinColumn
-//    private Venue venue;
+    @ManyToOne
+    @JoinColumn
+    private Venue venue;
+
+    private Integer guests;
+    private Date bookingStart;
+    private Date bookingEnd;
     private Date created;
     private Date updated;
+
     @PrePersist
     protected void onCreate() {
         created = new Date();

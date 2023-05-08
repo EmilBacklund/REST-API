@@ -1,5 +1,7 @@
 package com.restapi.restapi.models.vanue;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.restapi.restapi.models.booking.Booking;
 import com.restapi.restapi.models.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +40,8 @@ public class Venue {
     private VenueLocation venueLocation;
     @OneToMany(cascade = CascadeType.ALL)
     private List<VenueMedia> venueMedia;
+    @OneToMany(mappedBy = "venue")
+    private List<Booking> bookings;
     private Date created;
     private Date updated;
 
