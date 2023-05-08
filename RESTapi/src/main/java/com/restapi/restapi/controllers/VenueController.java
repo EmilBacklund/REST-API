@@ -1,6 +1,7 @@
 package com.restapi.restapi.controllers;
 
 import com.restapi.restapi.models.vanue.*;
+import com.restapi.restapi.repositories.AmenityRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
 import com.restapi.restapi.request.VenueRequest;
@@ -8,6 +9,7 @@ import com.restapi.restapi.responses.home.AffordableVenue;
 import com.restapi.restapi.responses.home.HomeScreen;
 import com.restapi.restapi.responses.home.TrendingCountries;
 import com.restapi.restapi.responses.home.TrendingVenue;
+import com.restapi.restapi.responses.venue.VenueProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ public class VenueController {
 
     private final VenueRepository venueRepository;
     private final UserRepository userRepository;
+    private final AmenityRepository amenityRepository;
 
     @GetMapping("get/home")
     public ResponseEntity<HomeScreen> homeScreen(){
@@ -63,21 +66,25 @@ public class VenueController {
                 .collect(Collectors.toList()));
     }
 
+    @GetMapping("get/venue/{id}")
+    public ResponseEntity<VenueProfile> singleVenue(@PathVariable Long id){
+
+        return ResponseEntity.ok(new VenueProfile());
+    }
+
     @PostMapping("venue/register/{id}")
-    public ResponseEntity<Long> registerVenue(@PathVariable Long id,
+    public ResponseEntity<Venue> registerVenue(@PathVariable Long id,
                                               @RequestBody VenueRequest venueRequest){
 
-        Venue venue = venueRepository.save(Venue.builder()
+        //Venue venue =
+               return ResponseEntity.ok(venueRepository.save(Venue.builder()
                         .title(venueRequest.getTitle())
                         .coverPhoto(venueRequest.getCoverPhoto())
                         .type(venueRequest.getType())
                         .available(true)
                         .type(venueRequest.getType())
                         .owner(userRepository.findById(id).orElseThrow())
-                        .amenity(venueRequest.getAmenities().stream().map(e-> Amenity.builder()
-                                .amenity(e.getAmenity())
-                                .accessibility(e.getAccessibility())
-                                .build()).collect(Collectors.toList()))
+                        .amenity(amenityRepository.findByAmenityIn(venueRequest.getAmenities()))
                         .info(VenueInfo.builder()
                                 .price(venueRequest.getPrice())
                                 .squareMeter(venueRequest.getSquareMeter())
@@ -95,8 +102,8 @@ public class VenueController {
                                 .image(e.getImage())
                                 .description(e.getDescription())
                                 .build()).collect(Collectors.toList()))
-                .build());
+                .build()));
 
-        return ResponseEntity.ok(venue.getId());
+        //return ResponseEntity.ok(venue.getId());
     }
 }

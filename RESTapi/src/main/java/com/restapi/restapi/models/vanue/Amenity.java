@@ -16,6 +16,4 @@ public class Amenity {
     @GeneratedValue
     private Long id;
     private String amenity;
-    private Boolean accessibility;
-
 }

@@ -4,6 +4,7 @@ import com.restapi.restapi.models.user.Role;
 import com.restapi.restapi.models.user.User;
 import com.restapi.restapi.models.user.UserInfo;
 import com.restapi.restapi.models.vanue.*;
+import com.restapi.restapi.repositories.AmenityRepository;
 import com.restapi.restapi.repositories.LanguageRepository;
 import com.restapi.restapi.repositories.UserRepository;
 import com.restapi.restapi.repositories.VenueRepository;
@@ -27,6 +28,7 @@ public class ResTapiApplication {
     public CommandLineRunner hej(LanguageRepository languageRepository,
                                  UserRepository userRepository,
                                  VenueRepository venueRepository,
+                                 AmenityRepository amenityRepository
                                  ){
         return (args -> {
 
@@ -72,26 +74,12 @@ public class ResTapiApplication {
             User rater2 = userRepository.findByEmail("klo@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
             User owner = userRepository.findByEmail("email@mail.se").orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-//            private String title;
-//            private String coverPhoto;
-//            private String type;
-//            private boolean available;
-//            @ManyToOne
-//            @JoinColumn
-//            private User owner;
-//            @ManyToMany
-//            @JoinTable
-//            private List<Amenity> amenity;
-//            @OneToMany(cascade = CascadeType.ALL)
-//            private List<Rating> rating;
-//            @OneToOne(cascade = CascadeType.ALL)
-//            private VenueInfo info;
-//            @OneToOne(cascade = CascadeType.ALL)
-//            private VenueLocation venueLocation;
-//            @ManyToMany
-//            @JoinTable
-//            private List<VenueMedia> venueMedia;
 
+            amenityRepository.saveAll(List.of(Amenity.builder()
+                            .amenity("Wifi")
+                    .build(), Amenity.builder()
+                            .amenity("Park")
+                    .build()));
 
 
             venueRepository.save(Venue.builder()
@@ -100,24 +88,17 @@ public class ResTapiApplication {
                             .available(true)
                             .owner(owner)
                             .type("house")
-                            .amenity(List.of(Amenity.builder()
-                                                    .amenity("Wifi")
-                                                    .accessibility(true)
-                                            .build(),
-                                            Amenity.builder()
-                                                    .amenity("Park")
-                                                    .accessibility(false)
-                                            .build()))
+                            .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                             .rating(List.of(Rating.builder()
-                                    .rating(3)
-                                    .comment("yay")
-                                    .rater(rater)
-                                    .build(),
-                                    Rating.builder()
-                                    .rating(2)
-                                    .comment("yay")
-                                    .rater(rater2)
-                                    .build()))
+                                                    .rating(3)
+                                                    .comment("yay")
+                                                    .rater(rater)
+                                            .build(),
+                                            Rating.builder()
+                                                    .rating(2)
+                                                    .comment("yay")
+                                                    .rater(rater2)
+                                            .build()))
                             .info(VenueInfo.builder()
                                     .price(5000)
                                     .guestQuantity(5)
@@ -131,13 +112,13 @@ public class ResTapiApplication {
                                     .country("nor")
                                     .build())
                             .venueMedia(List.of(VenueMedia.builder()
-                                    .description("kök")
-                                    .image("bild")
-                                    .build(),
-                                    VenueMedia.builder()
-                                            .description("toa")
-                                            .image("bild")
-                                            .build()))
+                                                    .description("kök")
+                                                    .image("bild")
+                                                .build(),
+                                                VenueMedia.builder()
+                                                    .description("toa")
+                                                    .image("bild")
+                                                .build()))
                             .build());
 
             venueRepository.save(Venue.builder()
@@ -145,14 +126,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(1)
                                     .comment("yay")
@@ -190,14 +164,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(4)
                                     .comment("yay")
@@ -235,14 +202,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(4)
                                     .comment("yay")
@@ -280,14 +240,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(3)
                                     .comment("yay")
@@ -325,14 +278,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(1)
                                     .comment("yay")
@@ -370,14 +316,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(4)
                                     .comment("yay")
@@ -415,14 +354,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(3)
                                     .comment("yay")
@@ -460,14 +392,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(3)
                                     .comment("yay")
@@ -505,14 +430,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(3)
                                     .comment("yay")
@@ -550,14 +468,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(2)
                                     .comment("yay")
@@ -595,14 +506,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(2)
                                     .comment("yay")
@@ -640,14 +544,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(3)
                                     .comment("yay")
@@ -685,14 +582,7 @@ public class ResTapiApplication {
                     .coverPhoto("image")
                     .available(true)
                     .owner(owner)
-                    .amenity(List.of(Amenity.builder()
-                                    .amenity("Wifi")
-                                    .accessibility(true)
-                                    .build(),
-                            Amenity.builder()
-                                    .amenity("Park")
-                                    .accessibility(false)
-                                    .build()))
+                    .amenity(amenityRepository.findByAmenityIn(List.of("Wifi", "Park")))
                     .rating(List.of(Rating.builder()
                                     .rating(3)
                                     .comment("yay")

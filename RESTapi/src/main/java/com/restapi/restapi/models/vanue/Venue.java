@@ -27,7 +27,8 @@ public class Venue {
     @ManyToOne
     @JoinColumn
     private User owner;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable
     private List<Amenity> amenity;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rating> rating;
@@ -35,8 +36,7 @@ public class Venue {
     private VenueInfo info;
     @OneToOne(cascade = CascadeType.ALL)
     private VenueLocation venueLocation;
-    @ManyToMany
-    @JoinTable
+    @OneToMany(cascade = CascadeType.ALL)
     private List<VenueMedia> venueMedia;
     private Date created;
     private Date updated;

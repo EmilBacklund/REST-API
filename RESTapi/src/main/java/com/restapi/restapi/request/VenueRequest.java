@@ -28,15 +28,13 @@ public class VenueRequest {
 
     private String type;
 
-    List<AmenityRequest> amenities;
+    List<String> amenities;
 
     int price;
 
     private String coverPhoto;
     private List<VenueMediaRequest> media;
-    private String imageDescription;
 
-    Boolean minBool;
     /*
 
     {

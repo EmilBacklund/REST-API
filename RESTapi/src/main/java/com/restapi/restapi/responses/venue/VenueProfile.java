@@ -1,4 +1,4 @@
-package com.restapi.restapi.request;
+package com.restapi.restapi.responses.venue;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AmenityRequest {
-
-    private String amenity;
-    private Boolean accessibility;
+public class VenueProfile {
 
 }
