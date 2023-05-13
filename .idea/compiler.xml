@@ -10,9 +10,6 @@
         <module name="RESTapi" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="RESTapi" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

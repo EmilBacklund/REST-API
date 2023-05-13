@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/REST-API.iml" filepath="$PROJECT_DIR$/.idea/REST-API.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RESTapi/RESTapi.iml" filepath="$PROJECT_DIR$/RESTapi/RESTapi.iml" />
     </modules>
   </component>
 </project>
